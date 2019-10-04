@@ -21,16 +21,19 @@ var cards = [
 	cardImage: "images/king-of-hearts.png"
 	}
 ];
+
 var cardsInPlay = [];
 function checkForMatch(){
 	if (cardsInPlay[0] === cardsInPlay[1]) {
-  console.log("You found a match!");
+  alert("You found a match!");
 } else if (cardsInPlay.length === 2) {
   alert("Sorry, try again.");
 }
 }
 
-function flipcard(cardId) {
+function flipcard() {
+	var cardId = this.getAttribute('data-id');
+	this.setAttribute('src', cards[cardId].cardImage)
 	console.log("User flipped " + cards[cardId].rank);
 	cardsInPlay.push(cards[cardId].rank);
 	checkForMatch();
@@ -39,8 +42,18 @@ function flipcard(cardId) {
 
 };
 
-flipcard(0);
-flipcard(2);
+function createBoard(){
+	for (i = 0; i < 4; i ++){
+	var cardElement = document.createElement('img');
+	cardElement.setAttribute('src', "images/back.png");
+	cardElement.setAttribute('data-id', i);
+	cardElement.addEventListener('click', flipcard);
+	document.getElementById("game-board").appendChild(cardElement);
+}
+}
+
+createBoard();
+
 
 
 
